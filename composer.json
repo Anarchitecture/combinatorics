@@ -1,0 +1,29 @@
+{
+    "name": "anarchitecture/combinatorics",
+    "description": "Combinatorics helpers for functional pipelines (powerset, permutations, allocations) for PHP 8.5+.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.5",
+        "anarchitecture/pipe": "^0.3"
+    },
+    "autoload": {
+        "files": [
+            "src/combinatorics.php"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.5",
+        "phpstan/phpstan": "^2.1"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpstan": "phpstan analyse -l 10 src",
+        "check": [
+            "@phpstan",
+            "@test"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
