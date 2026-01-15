@@ -1,5 +1,8 @@
 # anarchitecture/combinatorics
 
+[![CI](https://github.com/Anarchitecture/combinatorics/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Anarchitecture/combinatorics/actions/workflows/ci.yml) [![Latest Version](https://img.shields.io/packagist/v/anarchitecture/combinatorics)](https://packagist.org/packages/anarchitecture/combinatorics) [![License](https://img.shields.io/packagist/l/anarchitecture/combinatorics)](https://github.com/Anarchitecture/combinatorics/blob/main/LICENSE)
+
+
 Combinatorics helpers for functional pipelines in **PHP 8.5+**, designed to pair nicely with the pipe operator (`|>`) and the `anarchitecture/pipe` library.
 
 This package intentionally focuses on _search-space_ helpers (often exponential). Keep your core FP primitives in a smaller library, and pull these in when you need them.

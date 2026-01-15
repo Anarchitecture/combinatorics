@@ -40,6 +40,6 @@ jobs:
           fi
 
       - name: Static analysis phpstan
-        run: composer analyse
+        run: composer phpstan
       - name: Tests phpunit
         run: composer test
