@@ -4,8 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.5",
-        "anarchitecture/pipe": "^0.3"
+        "php": "^8.5"
     },
     "autoload": {
         "files": [
@@ -25,5 +24,8 @@
         ]
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "suggest": {
+        "anarchitecture/pipe": "For building easy pipelines"
+    }
 }
