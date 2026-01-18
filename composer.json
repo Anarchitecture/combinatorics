@@ -13,7 +13,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^12.5",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "anarchitecture/pipe": "^0.4.0"
     },
     "scripts": {
         "test": "phpunit",
