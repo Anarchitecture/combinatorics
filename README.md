@@ -37,6 +37,32 @@ $subsets = $items
 
 ## Functions
 
+### `iterable_combinations(int $n)`
+
+Yield all subsets of **exactly** size `$n` from an iterable. Output is lazy; input is materialized into an array first.
+
+- Preserves the original keys in each subset.
+- Yields `C(count(items), n)` combinations (binomial coefficient).
+- For `$n = 0`, yields the empty subset only: `[[]]`.
+- Throws `InvalidArgumentException` if `$n < 0`.
+
+```php
+use Anarchitecture\combinatorics as c;
+use Anarchitecture\pipe as p;
+
+$items = ['a' => 1, 'b' => 2, 'c' => 3];
+
+$pairs = $items
+    |> c\iterable_combinations(2)
+    |> p\collect(...);
+
+// [
+//   ['b' => 2, 'c' => 3],
+//   ['a' => 1, 'c' => 3],
+//   ['a' => 1, 'b' => 2],
+// ]
+```
+
 ### `iterable_powerset()`
 
 Yield all subsets (the power set) of an iterable. Output is lazy; input is materialized into an array first.

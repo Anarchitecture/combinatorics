@@ -53,6 +53,55 @@ function iterable_allocations(int $total): Closure {
 }
 
 /**
+ * Yield all combinations (subsets) of size $n from the given items (lazy).
+ *
+ * Preserves original keys.
+ *
+ * @throws InvalidArgumentException
+ * @return Closure(iterable<array-key, mixed>, int): iterable<array-key, array<array-key, mixed>>
+ */
+function iterable_combinations(int $n): Closure {
+
+    if ($n < 0) {
+        throw new InvalidArgumentException("iterable_combinations_n: n must be >= 0");
+    }
+
+    return static function (iterable $items) use ($n): Generator {
+
+        $items = \is_array($items) ? $items : \iterator_to_array($items, true);
+
+        $iterable_combinations = static function (array $items, int $n) use (&$iterable_combinations): Generator {
+
+            if ($n === 0) {
+                yield [];
+                return;
+            }
+
+            if ($items === [] || $n > \count($items)) {
+                return;
+            }
+
+            $k = \array_key_first($items);
+            $v = $items[$k];
+            unset($items[$k]);
+
+            /** @var array<array-key, mixed> $subset */
+            foreach ($iterable_combinations($items, $n) as $subset) {
+                yield $subset;
+            }
+
+            /** @var array<array-key, mixed> $subset */
+            foreach ($iterable_combinations($items, $n - 1) as $subset) {
+                yield [$k => $v] + $subset;
+            }
+        };
+
+        yield from $iterable_combinations($items, $n);
+    };
+}
+
+
+/**
  * Generate (lazy) permutation of iterable (consumed)
  *
  * @return Closure(array<array-key, mixed>) : Generator<list<mixed>>
@@ -97,7 +146,7 @@ function iterable_powerset() : Closure {
 
         $items = \is_array($items) ? $items : \iterator_to_array($items, true);
 
-        $gen = static function (array $items) use (&$gen): Generator {
+        $iterable_powerset = static function (array $items) use (&$iterable_powerset): Generator {
 
             if ($items === []) {
                 yield [];
@@ -109,12 +158,12 @@ function iterable_powerset() : Closure {
             unset($items[$k]);
 
             /** @var array<array-key, mixed> $subset */
-            foreach ($gen($items) as $subset) {
+            foreach ($iterable_powerset($items) as $subset) {
                 yield $subset;
                 yield [$k => $v] + $subset;
             }
         };
 
-        yield from $gen($items);
+        yield from $iterable_powerset($items);
     };
 }
